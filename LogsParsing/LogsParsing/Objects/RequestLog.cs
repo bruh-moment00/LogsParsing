@@ -13,14 +13,16 @@ namespace LogsParsing.Objects
         public RequestLog(IPAddress address, DateTime requestTime)
         {
             Address = address;
-            RequestTime = requestTime;
+            this.RequestTime = requestTime;
         }
         public RequestLog(string address, string requestTime)
         {
             Address = IPAddress.Parse(address);
             RequestTime = DateTime.Parse(requestTime);
         }
-        public IPAddress Address { get; set; }
-        public DateTime RequestTime {  get; set; }
+
+        public IPAddress Address {  get; private set; }
+
+        public DateTime RequestTime { get; private set; }
     }
 }
