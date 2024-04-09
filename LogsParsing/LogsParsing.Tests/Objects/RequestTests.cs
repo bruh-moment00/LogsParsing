@@ -4,7 +4,7 @@ using System.Net;
 namespace LogsParsing.Tests.Objects
 {
     [TestClass]
-    public class RequestLogTests
+    public class RequestTests
     {
         [TestMethod]
         public void TryCreateRequestLog_FromSpecificObjects()
@@ -12,7 +12,7 @@ namespace LogsParsing.Tests.Objects
             IPAddress testAddress = IPAddress.Parse("127.0.0.0");
             DateTime testTime = DateTime.Parse("2024-04-08 12:00:10");
 
-            RequestLog requestLog = new RequestLog(testAddress, testTime);
+            Request requestLog = new Request(testAddress, testTime);
 
             Assert.IsNotNull(requestLog);
         }
@@ -23,7 +23,7 @@ namespace LogsParsing.Tests.Objects
             string testAddress = "127.0.0.0";
             string testTime = "2024-04-08 12:00:10";
 
-            RequestLog requestLog = new RequestLog(testAddress, testTime);
+            Request requestLog = new Request(testAddress, testTime);
 
             Assert.IsNotNull(requestLog);
         }
@@ -36,7 +36,7 @@ namespace LogsParsing.Tests.Objects
 
             string expected = "127.0.0.0";
 
-            RequestLog requestLog = new RequestLog(testAddress, testTime);
+            Request requestLog = new Request(testAddress, testTime);
 
             Assert.AreEqual(expected, requestLog.Address.ToString());
         }
@@ -49,7 +49,7 @@ namespace LogsParsing.Tests.Objects
 
             string expected = "127.0.0.0";
 
-            RequestLog requestLog = new RequestLog(testAddress, testTime);
+            Request requestLog = new Request(testAddress, testTime);
 
             Assert.AreEqual(expected, requestLog.Address.ToString());
         }
@@ -62,7 +62,7 @@ namespace LogsParsing.Tests.Objects
 
             string expected = "2024-04-08 05:00:10";
 
-            RequestLog requestLog = new RequestLog(testAddress, testTime);
+            Request requestLog = new Request(testAddress, testTime);
 
             Assert.AreEqual(expected, requestLog.RequestTime.ToString("yyyy-MM-dd HH:mm:ss"));
         }
@@ -75,7 +75,7 @@ namespace LogsParsing.Tests.Objects
 
             string expected = "2024-04-08 05:00:10";
 
-            RequestLog requestLog = new RequestLog(testAddress, testTime);
+            Request requestLog = new Request(testAddress, testTime);
 
             Assert.AreEqual(expected, requestLog.RequestTime.ToString("yyyy-MM-dd HH:mm:ss"));
         }

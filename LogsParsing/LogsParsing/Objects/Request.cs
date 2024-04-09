@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace LogsParsing.Objects
 {
-    public class RequestLog
+    public class Request
     {
-        public RequestLog(IPAddress address, DateTime requestTime)
+        public Request(IPAddress address, DateTime requestTime)
         {
             Address = address;
             this.RequestTime = requestTime;
         }
-        public RequestLog(string address, string requestTime)
+        public Request(string address, string requestTime)
         {
             Address = IPAddress.Parse(address);
             RequestTime = DateTime.Parse(requestTime);
@@ -25,4 +25,6 @@ namespace LogsParsing.Objects
 
         public DateTime RequestTime { get; private set; }
     }
+
+    
 }
