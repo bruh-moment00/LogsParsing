@@ -1,4 +1,4 @@
-using LogsParsing.Objects;
+using LogsParsing.Requests.Objects;
 using System.Net;
 
 namespace LogsParsing.Tests.Objects

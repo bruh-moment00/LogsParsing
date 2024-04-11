@@ -1,12 +1,11 @@
-﻿using LogsParsing.Objects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogsParsing.Objects
+namespace LogsParsing.RequestsCounters.Objects
 {
     public class RequestsCounter
     {
@@ -21,7 +20,7 @@ namespace LogsParsing.Objects
             RequestsCount = requestsCount;
         }
         public IPAddress IPAddress { get; set; }
-        public int RequestsCount {  get; set; }
+        public int RequestsCount { get; set; }
     }
 }
 

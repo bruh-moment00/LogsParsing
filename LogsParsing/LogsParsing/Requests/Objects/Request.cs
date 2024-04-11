@@ -6,14 +6,14 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogsParsing.Objects
+namespace LogsParsing.Requests.Objects
 {
     public class Request
     {
         public Request(IPAddress address, DateTime requestTime)
         {
             Address = address;
-            this.RequestTime = requestTime;
+            RequestTime = requestTime;
         }
         public Request(string address, string requestTime)
         {
@@ -21,10 +21,10 @@ namespace LogsParsing.Objects
             RequestTime = DateTime.Parse(requestTime);
         }
 
-        public IPAddress Address {  get; private set; }
+        public IPAddress Address { get; private set; }
 
         public DateTime RequestTime { get; private set; }
     }
 
-    
+
 }

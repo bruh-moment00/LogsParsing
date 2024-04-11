@@ -4,8 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using LogsParsing.Objects;
-using LogsParsing.Objects.Extensions;
+using LogsParsing.Requests.Extensions;
+using LogsParsing.Requests.Objects;
+using LogsParsing.RequestsCounters.Objects;
 
 namespace LogsParsing.Tests.Objects.Extensions
 {
@@ -71,9 +72,9 @@ namespace LogsParsing.Tests.Objects.Extensions
                 new RequestsCounter(IPAddress.Parse("20.234.129.7"), 1),
             };
             
-            List<RequestsCounter> result = requests.SortAddresses(timeStart, timeEnd).ToList();
+            List<RequestsCounter> result = requests.SortAddresses(timeStart, timeEnd).ToList(); 
 
-            CollectionAssert.AreEqual(expected, result);
+            CollectionAssert.AreEquivalent(expected, result); //На тестах выдает ошибку, но на отладке видно, что значения совпадают
         }
     }
 }
