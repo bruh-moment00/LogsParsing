@@ -18,7 +18,7 @@ namespace LogsParsing.Requests.Objects
         public Request(string address, string requestTime)
         {
             Address = IPAddress.Parse(address);
-            RequestTime = DateTime.Parse(requestTime);
+            RequestTime = DateTime.ParseExact(requestTime, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public IPAddress Address { get; private set; }

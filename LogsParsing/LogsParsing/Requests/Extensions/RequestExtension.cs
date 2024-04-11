@@ -32,10 +32,28 @@ namespace LogsParsing.Requests.Extensions
             return result;
         }
 
+        public static IEnumerable<RequestsCounter> SortAddresses(this IEnumerable<Request> requests, string timeStart, string timeEnd)
+        {
+            DateTime convertTimeStart = DateTime.ParseExact(timeStart, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime convertTimeEnd = DateTime.ParseExact(timeEnd, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            List<Request> filteredRequestsByTime = requests.Where(r => convertTimeStart <= r.RequestTime && r.RequestTime <= convertTimeEnd).ToList();
+            List<IPAddress> uniqueAddresses = filteredRequestsByTime.GetUniqueIPs().ToList();
+
+            List<RequestsCounter> result = new List<RequestsCounter>();
+
+            foreach (IPAddress address in uniqueAddresses)
+            {
+                int countRequests = filteredRequestsByTime.Count(r => r.Address.Equals(address));
+                result.Add(new RequestsCounter(address, countRequests));
+            }
+
+            return result;
+        }
+
         public static Request ToRequestType(this string request)
         {
-            string address = request.Substring(0, request.IndexOf(':'));
-            string date = request.Substring(request.IndexOf(':') + 1);
+            string date = request.Substring(0, request.LastIndexOf(':')).Trim();
+            string address = request.Substring(request.LastIndexOf(':') + 1).Trim();
             return new Request(address, date);
         }
     }
