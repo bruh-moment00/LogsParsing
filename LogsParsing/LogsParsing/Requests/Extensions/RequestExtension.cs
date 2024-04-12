@@ -32,12 +32,10 @@ namespace LogsParsing.Requests.Extensions
             return result;
         }
 
-        public static IEnumerable<RequestsCounter> SortAddresses(this IEnumerable<Request> requests, string timeStart, string timeEnd)
+        public static IEnumerable<RequestsCounter> SortAddresses(this IEnumerable<Request> requests, DateTime timeStart, DateTime timeEnd, IPAddress addressStart, IPAddress addressMask)
         {
-            DateTime convertTimeStart = DateTime.ParseExact(timeStart, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
-            DateTime convertTimeEnd = DateTime.ParseExact(timeEnd, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
-            List<Request> filteredRequestsByTime = requests.Where(r => convertTimeStart <= r.RequestTime && r.RequestTime <= convertTimeEnd).ToList();
-            List<IPAddress> uniqueAddresses = filteredRequestsByTime.GetUniqueIPs().ToList();
+            List<Request> filteredRequestsByTime = requests.Where(r => timeStart <= r.RequestTime && r.RequestTime <= timeEnd).ToList();
+            List<IPAddress> uniqueAddresses = filteredRequestsByTime.GetUniqueIPs().InRange(addressStart, addressMask).ToList();
 
             List<RequestsCounter> result = new List<RequestsCounter>();
 
@@ -48,6 +46,22 @@ namespace LogsParsing.Requests.Extensions
             }
 
             return result;
+        }
+
+        public static IEnumerable<RequestsCounter> SortAddresses(this IEnumerable<Request> requests, string timeStart, string timeEnd)
+        {
+            DateTime convertTimeStart = DateTime.ParseExact(timeStart, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime convertTimeEnd = DateTime.ParseExact(timeEnd, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+            return requests.SortAddresses(convertTimeStart, convertTimeEnd);
+        }
+
+        public static IEnumerable<RequestsCounter> SortAddresses(this IEnumerable<Request> requests, string timeStart, string timeEnd, IPAddress addressStart, IPAddress addressMask)
+        {
+            DateTime convertTimeStart = DateTime.ParseExact(timeStart, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime convertTimeEnd = DateTime.ParseExact(timeEnd, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+            return requests.SortAddresses(convertTimeStart, convertTimeEnd, addressStart, addressMask);
         }
 
         public static Request ToRequestType(this string request)
