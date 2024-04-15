@@ -25,7 +25,7 @@ parser.WithParsed<CLIOptions>(opt =>
     {
         if (opt.AddressStart != null)
         {
-            result = requests.SortAddresses(opt.TimeStart, opt.TimeEnd, IPAddress.Parse(opt.AddressStart), IPAddress.Parse(opt.AddressMask));
+            result = requests.SortAddresses(opt.TimeStart, opt.TimeEnd, IPAddress.Parse(opt.AddressStart), int.Parse(opt.AddressMask));
         }
         else
         {
@@ -55,7 +55,7 @@ internal class CLIOptions
     [Option("address-start", Required = false, HelpText = "Нижняя граница диапазона адресов")]
     public string? AddressStart { get; set; }
 
-    [Option("address-mask", Required = false, Default = "255.255.255.255", HelpText = "маска подсети, задающая верхнюю границу диапазона десятичное число. Обязательно наличие параметра address-start")]
+    [Option("address-mask", Required = false, Default = "0", HelpText = "маска подсети, задающая верхнюю границу диапазона десятичное число. Обязательно наличие параметра address-start")]
     public string? AddressMask { get; set; }
 
     [Option("time-start", Required = true, HelpText = "Нижняя граница временного интервала. Время должно быть указано в формате dd.MM.yyyy")]

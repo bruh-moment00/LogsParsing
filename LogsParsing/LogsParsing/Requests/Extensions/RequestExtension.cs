@@ -32,7 +32,7 @@ namespace LogsParsing.Requests.Extensions
             return result;
         }
 
-        public static IEnumerable<RequestsCounter> SortAddresses(this IEnumerable<Request> requests, DateTime timeStart, DateTime timeEnd, IPAddress addressStart, IPAddress addressMask)
+        public static IEnumerable<RequestsCounter> SortAddresses(this IEnumerable<Request> requests, DateTime timeStart, DateTime timeEnd, IPAddress addressStart, int addressMask)
         {
             List<Request> filteredRequestsByTime = requests.Where(r => timeStart <= r.RequestTime && r.RequestTime <= timeEnd).ToList();
             List<IPAddress> uniqueAddresses = filteredRequestsByTime.GetUniqueIPs().InRange(addressStart, addressMask).ToList();
@@ -56,7 +56,7 @@ namespace LogsParsing.Requests.Extensions
             return requests.SortAddresses(convertTimeStart, convertTimeEnd);
         }
 
-        public static IEnumerable<RequestsCounter> SortAddresses(this IEnumerable<Request> requests, string timeStart, string timeEnd, IPAddress addressStart, IPAddress addressMask)
+        public static IEnumerable<RequestsCounter> SortAddresses(this IEnumerable<Request> requests, string timeStart, string timeEnd, IPAddress addressStart, int addressMask)
         {
             DateTime convertTimeStart = DateTime.ParseExact(timeStart, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
             DateTime convertTimeEnd = DateTime.ParseExact(timeEnd, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);

@@ -10,13 +10,14 @@ namespace LogsParsing.Requests.Extensions
 {
     public static class IPAddressExtensions
     {
-        public static bool IsInRange(this IPAddress ipAddress, IPAddress rangeStart, IPAddress addressMask)
+        public static bool IsInRange(this IPAddress ipAddress, IPAddress addressStart, int addressMask)
         {
-            IPAddressRange range = new IPAddressRange(rangeStart, addressMask);
+            IPAddressRange range = new IPAddressRange(addressStart, addressMask);
+            range.Begin = addressStart;
             return range.Contains(ipAddress);
         }
 
-        public static IEnumerable<IPAddress> InRange(this IEnumerable<IPAddress> addresses, IPAddress rangeStart, IPAddress addressMask) 
+        public static IEnumerable<IPAddress> InRange(this IEnumerable<IPAddress> addresses, IPAddress rangeStart, int addressMask) 
         {
             List<IPAddress> result = new List<IPAddress>();
             foreach (IPAddress address in addresses)
